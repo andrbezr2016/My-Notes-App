@@ -2,18 +2,16 @@ package com.andrbezr2016.mynotes.dto;
 
 import lombok.Data;
 
-import java.sql.Timestamp;
+import java.time.OffsetDateTime;
 
 @Data
 public class CategoryDto {
 
     private long id;
 
-    private long userId;
-
     private String title;
 
-    private Timestamp createdAt;
+    private OffsetDateTime createdAt;
 
-    private Timestamp modifiedAt;
+    private OffsetDateTime modifiedAt;
 }

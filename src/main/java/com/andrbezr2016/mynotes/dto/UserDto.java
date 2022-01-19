@@ -2,7 +2,7 @@ package com.andrbezr2016.mynotes.dto;
 
 import lombok.Data;
 
-import java.sql.Timestamp;
+import java.time.OffsetDateTime;
 
 @Data
 public class UserDto {
@@ -13,11 +13,9 @@ public class UserDto {
 
     private String email;
 
-    private String password;
-
     private String iconPath;
 
-    private Timestamp createdAt;
+    private OffsetDateTime createdAt;
 
-    private Timestamp modifiedAt;
+    private OffsetDateTime modifiedAt;
 }

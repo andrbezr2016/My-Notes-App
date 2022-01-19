@@ -2,7 +2,7 @@ package com.andrbezr2016.mynotes.dto;
 
 import lombok.Data;
 
-import java.sql.Timestamp;
+import java.time.OffsetDateTime;
 
 @Data
 public class NoteDto {
@@ -15,11 +15,9 @@ public class NoteDto {
 
     private String content;
 
-    private boolean deletedFlag;
+    private OffsetDateTime deletedAt;
 
-    private Timestamp deletedAt;
+    private OffsetDateTime createdAt;
 
-    private Timestamp createdAt;
-
-    private Timestamp modifiedAt;
+    private OffsetDateTime modifiedAt;
 }

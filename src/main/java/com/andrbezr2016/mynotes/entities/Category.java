@@ -3,7 +3,7 @@ package com.andrbezr2016.mynotes.entities;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.time.OffsetDateTime;
 
 @Data
 @Entity
@@ -22,8 +22,8 @@ public class Category {
     private String title;
 
     @Column(name = "created_at", nullable = false)
-    private Timestamp createdAt;
+    private OffsetDateTime createdAt;
 
     @Column(name = "modified_at", nullable = false)
-    private Timestamp modifiedAt;
+    private OffsetDateTime modifiedAt;
 }
