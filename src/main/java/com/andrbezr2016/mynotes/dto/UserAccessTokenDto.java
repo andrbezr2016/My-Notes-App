@@ -2,7 +2,7 @@ package com.andrbezr2016.mynotes.dto;
 
 import lombok.Data;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 @Data
 public class UserAccessTokenDto {
@@ -11,7 +11,7 @@ public class UserAccessTokenDto {
 
     private long userId;
 
-    private Date createdAt;
+    private Timestamp createdAt;
 
-    private Date expiredAt;
+    private Timestamp expiredAt;
 }

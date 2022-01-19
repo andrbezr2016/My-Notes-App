@@ -2,7 +2,7 @@ package com.andrbezr2016.mynotes.dto;
 
 import lombok.Data;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 @Data
 public class NoteDto {
@@ -17,9 +17,9 @@ public class NoteDto {
 
     private boolean deletedFlag;
 
-    private Date deletedAt;
+    private Timestamp deletedAt;
 
-    private Date createdAt;
+    private Timestamp createdAt;
 
-    private Date modifiedAt;
+    private Timestamp modifiedAt;
 }

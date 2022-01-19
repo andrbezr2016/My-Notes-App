@@ -3,7 +3,7 @@ package com.andrbezr2016.mynotes.entities;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 @Data
 @Entity
@@ -18,21 +18,21 @@ public class Note {
     @Column(name = "category_id")
     private long categoryId;
 
-    @Column(name = "title")
+    @Column(name = "title", nullable = false)
     private String title;
 
     @Column(name = "content")
     private String content;
 
-    @Column(name = "deleted_flag")
+    @Column(name = "deleted_flag", nullable = false)
     private boolean deletedFlag;
 
     @Column(name = "deleted_at")
-    private Date deletedAt;
+    private Timestamp deletedAt;
 
-    @Column(name = "created_at")
-    private Date createdAt;
+    @Column(name = "created_at", nullable = false)
+    private Timestamp createdAt;
 
-    @Column(name = "modified_at")
-    private Date modifiedAt;
+    @Column(name = "modified_at", nullable = false)
+    private Timestamp modifiedAt;
 }

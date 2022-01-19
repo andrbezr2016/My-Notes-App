@@ -2,7 +2,7 @@ package com.andrbezr2016.mynotes.dto;
 
 import lombok.Data;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 @Data
 public class UserDto {
@@ -17,7 +17,7 @@ public class UserDto {
 
     private String iconPath;
 
-    private Date createdAt;
+    private Timestamp createdAt;
 
-    private Date modifiedAt;
+    private Timestamp modifiedAt;
 }

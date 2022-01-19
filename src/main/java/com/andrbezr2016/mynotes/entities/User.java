@@ -3,7 +3,7 @@ package com.andrbezr2016.mynotes.entities;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 @Data
 @Entity
@@ -15,21 +15,21 @@ public class User {
     @Column(name = "id")
     private long id;
 
-    @Column(name = "username")
+    @Column(name = "username", nullable = false)
     private String username;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Column(name = "icon_path")
     private String iconPath;
 
-    @Column(name = "created_at")
-    private Date createdAt;
+    @Column(name = "created_at", nullable = false)
+    private Timestamp createdAt;
 
-    @Column(name = "modified_at")
-    private Date modifiedAt;
+    @Column(name = "modified_at", nullable = false)
+    private Timestamp modifiedAt;
 }

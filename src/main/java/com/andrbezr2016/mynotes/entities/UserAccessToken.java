@@ -6,7 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 @Data
 @Entity
@@ -17,12 +17,12 @@ public class UserAccessToken {
     @Column(name = "token")
     private String token;
 
-    @Column(name = "user_id")
+    @Column(name = "user_id", nullable = false)
     private long userId;
 
-    @Column(name = "created_at")
-    private Date createdAt;
+    @Column(name = "created_at", nullable = false)
+    private Timestamp createdAt;
 
     @Column(name = "expired_at")
-    private Date expiredAt;
+    private Timestamp expiredAt;
 }
