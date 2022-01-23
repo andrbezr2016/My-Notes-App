@@ -15,7 +15,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"user\",\r\n    \"password\": \"password\"\r\n}",
+							"raw": "{\r\n    \"email\": \"newuser@mail.com\",\r\n    \"password\": \"password\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -42,7 +42,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"user\",\r\n    \"password\": \"password\",\r\n    \"email\": \"user@mail.com\",\r\n    \"iconPath\": \"\"\r\n}",
+							"raw": "{\r\n    \"username\": \"New User\",\r\n    \"email\": \"user@mail.com\",\r\n    \"password\": \"password\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -68,7 +68,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/auth/token?refreshToken=",
+							"raw": "{{host}}/auth/token?refreshToken=12345678",
 							"host": [
 								"{{host}}"
 							],
@@ -79,7 +79,7 @@
 							"query": [
 								{
 									"key": "refreshToken",
-									"value": ""
+									"value": "12345678"
 								}
 							]
 						}
@@ -132,13 +132,13 @@
 					"response": []
 				},
 				{
-					"name": "Change Current User",
+					"name": "Edit Current User",
 					"request": {
 						"method": "PATCH",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"user\",\r\n    \"password\": \"password\",\r\n    \"iconPath\": \"\"\r\n}",
+							"raw": "{\r\n    \"username\": \"User\",\r\n    \"password\": \"password\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -206,7 +206,7 @@
 					"response": []
 				},
 				{
-					"name": "Change Category",
+					"name": "Edit Category",
 					"request": {
 						"method": "PATCH",
 						"header": [],
@@ -285,7 +285,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"categoryId\":\"1\",\r\n    \"title\":\"New Note\",\r\n    \"content\":\"Hello!\"\r\n}",
+							"raw": "{\r\n    \"categoryId\": \"1\",\r\n    \"title\": \"New Note\",\r\n    \"content\": \"Hello!\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -305,13 +305,13 @@
 					"response": []
 				},
 				{
-					"name": "Change Note",
+					"name": "Edit Note",
 					"request": {
 						"method": "PATCH",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"categoryId\":\"1\",\r\n    \"title\":\"Note\",\r\n    \"content\":\"Hello world!\"\r\n}",
+							"raw": "{\r\n    \"categoryId\": \"1\",\r\n    \"title\": \"Note\",\r\n    \"content\": \"Hello world!\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

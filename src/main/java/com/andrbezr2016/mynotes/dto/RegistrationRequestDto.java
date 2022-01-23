@@ -3,9 +3,11 @@ package com.andrbezr2016.mynotes.dto;
 import lombok.Data;
 
 @Data
-public class ChangeUserDto {
+public class RegistrationRequestDto {
 
     private String username;
+
+    private String email;
 
     private String password;
 
