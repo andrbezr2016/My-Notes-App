@@ -19,6 +19,9 @@ public class Note {
     @Column(name = "id")
     private long id;
 
+    @Column(name = "user_id", nullable = false)
+    private long userId;
+
     @Column(name = "category_id")
     private long categoryId;
 

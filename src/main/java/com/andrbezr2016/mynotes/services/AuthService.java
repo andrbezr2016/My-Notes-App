@@ -15,7 +15,8 @@ import org.springframework.stereotype.Service;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
-import static com.andrbezr2016.mynotes.constants.ApiConstants.*;
+import static com.andrbezr2016.mynotes.constants.ExceptionConstants.*;
+import static com.andrbezr2016.mynotes.constants.TimeConstants.*;
 
 @RequiredArgsConstructor
 @Service
@@ -62,12 +63,8 @@ public class AuthService {
     }
 
     private UserTokenDto genUserToken(long userId) {
-        String accessToken;
-        String refreshToken;
-        do {
-            accessToken = DigestUtils.sha256Hex(UUID.randomUUID().toString());
-            refreshToken = DigestUtils.sha256Hex(UUID.randomUUID().toString());
-        } while (userTokenRepository.existsByAccessTokenOrRefreshToken(accessToken, refreshToken));
+        String accessToken = DigestUtils.sha256Hex(UUID.randomUUID().toString());
+        String refreshToken = DigestUtils.sha256Hex(UUID.randomUUID().toString());
         OffsetDateTime currentTime = OffsetDateTime.now();
         UserToken userToken = UserToken.builder()
                 .accessToken(accessToken)
@@ -77,6 +74,7 @@ public class AuthService {
                 .refreshExpiredAt(currentTime.plusMinutes(REFRESH_EXPIRED_IN_MINUTES))
                 .createdAt(currentTime)
                 .build();
+        userTokenRepository.deleteByUserId(userId);
         userTokenRepository.save(userToken);
         return UserTokenDto.builder()
                 .accessToken(userToken.getAccessToken())
