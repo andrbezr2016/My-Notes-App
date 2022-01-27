@@ -5,9 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class UserEditRequestDto {
+public class ErrorDto {
 
-    private String username;
-
-    private String password;
+    private String message;
 }

@@ -11,11 +11,14 @@
 				{
 					"name": "Request To Login",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"newuser@mail.com\",\r\n    \"password\": \"password\"\r\n}",
+							"raw": "{\r\n    \"email\": \"user@mail.com\",\r\n    \"password\": \"password\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -38,6 +41,9 @@
 				{
 					"name": "Request To Register",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -65,10 +71,13 @@
 				{
 					"name": "Request Tokens",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/auth/token?refreshToken=12345678",
+							"raw": "{{host}}/auth/token?refreshToken=4da0b72e99d7900f840675e9a46e6fd87a0a44f2fb79badf4b27e5ab3650b811",
 							"host": [
 								"{{host}}"
 							],
@@ -79,17 +88,32 @@
 							"query": [
 								{
 									"key": "refreshToken",
-									"value": "12345678"
+									"value": "4da0b72e99d7900f840675e9a46e6fd87a0a44f2fb79badf4b27e5ab3650b811"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Request To Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/auth/logout",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"auth",
+								"logout"
 							]
 						}
 					},
 					"response": []
 				}
 			],
-			"auth": {
-				"type": "noauth"
-			},
 			"event": [
 				{
 					"listen": "prerequest",
@@ -137,11 +161,23 @@
 						"method": "PATCH",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"User\",\r\n    \"password\": \"password\"\r\n}",
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "userEditRequestDto",
+									"value": "{\n    \"username\": \"User\",\n    \"password\": \"password\"\n}",
+									"contentType": "application/json",
+									"type": "default"
+								},
+								{
+									"key": "icon",
+									"type": "file",
+									"src": []
+								}
+							],
 							"options": {
 								"raw": {
-									"language": "json"
+									"language": "text"
 								}
 							}
 						},

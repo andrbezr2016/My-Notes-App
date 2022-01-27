@@ -2,7 +2,6 @@ package com.andrbezr2016.mynotes.controllers;
 
 import com.andrbezr2016.mynotes.dto.LoginRequestDto;
 import com.andrbezr2016.mynotes.dto.RegistrationRequestDto;
-import com.andrbezr2016.mynotes.dto.UserDto;
 import com.andrbezr2016.mynotes.dto.UserTokenDto;
 import com.andrbezr2016.mynotes.services.AuthService;
 import lombok.RequiredArgsConstructor;
@@ -23,12 +22,17 @@ public class AuthController {
     }
 
     @PostMapping("/registration")
-    public UserDto register(@RequestBody RegistrationRequestDto registrationRequestDto) {
-        return authService.register(registrationRequestDto);
+    public void register(@RequestBody RegistrationRequestDto registrationRequestDto) {
+        authService.register(registrationRequestDto);
     }
 
     @GetMapping("/token")
     public UserTokenDto requestToken(@RequestParam String refreshToken) {
         return authService.requestToken(refreshToken);
+    }
+
+    @PostMapping("/logout")
+    public void logout() {
+        authService.logout();
     }
 }

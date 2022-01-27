@@ -30,6 +30,7 @@ CREATE TABLE categories (
 
 CREATE TABLE notes (
 	id serial PRIMARY KEY,
+    user_id integer NOT NULL,
 	category_id integer,
 	title varchar NOT NULL,
 	content varchar,
@@ -37,5 +38,6 @@ CREATE TABLE notes (
 	deleted_at timestamptz,
 	created_at timestamptz DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	modified_at timestamptz DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
 	FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL
 );

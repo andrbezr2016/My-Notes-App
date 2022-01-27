@@ -1,12 +1,16 @@
 package com.andrbezr2016.mynotes.constants;
 
-public final class ApiConstants {
+public interface ApiConstants {
 
-    public static final String API_AUTH_PATH = "/auth";
-    public static final String API_USER_PATH = "/user";
-    public static final String API_CATEGORIES_PATH = "/categories";
-    public static final String API_NOTES_PATH = "/notes";
+    String API_AUTH_PATH = "/auth";
+    String API_USER_PATH = "/user";
+    String API_CATEGORIES_PATH = "/categories";
+    String API_NOTES_PATH = "/notes";
 
-    private ApiConstants() {
-    }
+    String EXCEPTION_INVALID_USER = "Invalid email or password";
+    String EXCEPTION_EXISTING_USER = "User already exists";
+    String EXCEPTION_INVALID_TOKEN = "Invalid refresh token";
+
+    int ACCESS_EXPIRED_IN_MINUTES = 60;
+    int REFRESH_EXPIRED_IN_MINUTES = 1440;
 }

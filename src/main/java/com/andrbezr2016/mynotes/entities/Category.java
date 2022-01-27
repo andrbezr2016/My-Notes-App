@@ -1,11 +1,15 @@
 package com.andrbezr2016.mynotes.entities;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "categories")
 public class Category {

@@ -1,8 +1,10 @@
 package com.andrbezr2016.mynotes.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class RegistrationRequestDto {
 
     private String username;
@@ -10,6 +12,4 @@ public class RegistrationRequestDto {
     private String email;
 
     private String password;
-
-    private String iconPath;
 }
