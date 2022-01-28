@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  my-notes-db:
+    image: postgres:12
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=mynotes
+      - PG_DATA=/var/lib/postgresql12/data
+    volumes:
+      - postgresql:/var/lib/postgresql12
+      - postgresql_data:/var/lib/postgresql12/data
+    restart: always
+    networks:
+      - my-notes-net
+
+volumes:
+  postgresql:
+  postgresql_data:
+    driver: local
+
+networks:
+  my-notes-net:
+    driver:
+       bridge
