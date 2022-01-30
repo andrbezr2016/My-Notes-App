@@ -10,6 +10,33 @@
 			"item": [
 				{
 					"name": "Request To Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test CommonResponse is valid\", function () {\r",
+									"    pm.response.to.have.status(200)\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"    pm.expect(jsonData).to.not.be.null;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Has Token\", function() {\r",
+									"    pm.expect(jsonData.accessToken).to.not.be.null;\r",
+									"    pm.expect(jsonData.refreshToken).to.not.be.null;\r",
+									"    let accessToken = jsonData.accessToken;\r",
+									"    let refreshToken = jsonData.refreshToken;\r",
+									"    pm.collectionVariables.set(\"accessToken\", accessToken);\r",
+									"    pm.collectionVariables.set(\"refreshToken\", refreshToken)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -70,6 +97,33 @@
 				},
 				{
 					"name": "Request Tokens",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test CommonResponse is valid\", function () {\r",
+									"    pm.response.to.have.status(200)\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"    pm.expect(jsonData).to.not.be.null;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Has Token\", function() {\r",
+									"    pm.expect(jsonData.accessToken).to.not.be.null;\r",
+									"    pm.expect(jsonData.refreshToken).to.not.be.null;\r",
+									"    let accessToken = jsonData.accessToken;\r",
+									"    let refreshToken = jsonData.refreshToken;\r",
+									"    pm.collectionVariables.set(\"accessToken\", accessToken);\r",
+									"    pm.collectionVariables.set(\"refreshToken\", refreshToken)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -77,7 +131,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/auth/token?refreshToken=4da0b72e99d7900f840675e9a46e6fd87a0a44f2fb79badf4b27e5ab3650b811",
+							"raw": "{{host}}/auth/token?refreshToken={{refreshToken}}",
 							"host": [
 								"{{host}}"
 							],
@@ -88,7 +142,7 @@
 							"query": [
 								{
 									"key": "refreshToken",
-									"value": "4da0b72e99d7900f840675e9a46e6fd87a0a44f2fb79badf4b27e5ab3650b811"
+									"value": "{{refreshToken}}"
 								}
 							]
 						}
@@ -429,17 +483,12 @@
 		"apikey": [
 			{
 				"key": "value",
-				"value": "{{token}}",
+				"value": "{{accessToken}}",
 				"type": "string"
 			},
 			{
 				"key": "key",
 				"value": "Token",
-				"type": "string"
-			},
-			{
-				"key": "in",
-				"value": "header",
 				"type": "string"
 			}
 		]
@@ -466,7 +515,12 @@
 	],
 	"variable": [
 		{
-			"key": "token",
+			"key": "accessToken",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "refreshToken",
 			"value": "",
 			"type": "default"
 		}

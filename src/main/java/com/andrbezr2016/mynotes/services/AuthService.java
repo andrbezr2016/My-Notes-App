@@ -1,14 +1,17 @@
 package com.andrbezr2016.mynotes.services;
 
+import com.andrbezr2016.mynotes.contexts.RequestContext;
 import com.andrbezr2016.mynotes.dto.LoginRequestDto;
 import com.andrbezr2016.mynotes.dto.RegistrationRequestDto;
 import com.andrbezr2016.mynotes.dto.UserTokenDto;
 import com.andrbezr2016.mynotes.entities.User;
 import com.andrbezr2016.mynotes.entities.UserToken;
+import com.andrbezr2016.mynotes.exceptions.AuthorizationException;
 import com.andrbezr2016.mynotes.exceptions.MyNotesAppException;
 import com.andrbezr2016.mynotes.repositories.UserRepository;
 import com.andrbezr2016.mynotes.repositories.UserTokenRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Service;
 
@@ -19,17 +22,20 @@ import static com.andrbezr2016.mynotes.constants.ExceptionConstants.*;
 import static com.andrbezr2016.mynotes.constants.TimeConstants.*;
 
 @RequiredArgsConstructor
+@Slf4j
 @Service
 public class AuthService {
 
     private final UserRepository userRepository;
     private final UserTokenRepository userTokenRepository;
+    private final RequestContext requestContext;
 
     public UserTokenDto login(LoginRequestDto loginRequestDto) {
         User user = userRepository.findByEmail(loginRequestDto.getEmail());
         if (user != null && loginRequestDto.getPassword().equals(user.getPassword())) {
             return genUserToken(user.getId());
         } else {
+            log.info("Failed login");
             throw new MyNotesAppException(EXCEPTION_INVALID_USER);
         }
     }
@@ -45,7 +51,9 @@ public class AuthService {
                     .createdAt(currentTime)
                     .modifiedAt(currentTime)
                     .build());
+            log.info("Added new user");
         } else {
+            log.info("Failed registration");
             throw new MyNotesAppException(EXCEPTION_EXISTING_USER);
         }
     }
@@ -55,11 +63,25 @@ public class AuthService {
         if (userToken != null && userToken.getRefreshExpiredAt().isAfter(OffsetDateTime.now())) {
             return genUserToken(userToken.getUserId());
         } else {
+            log.info("Failed refresh token");
             throw new MyNotesAppException(EXCEPTION_INVALID_TOKEN);
         }
     }
 
     public void logout() {
+        userTokenRepository.deleteByAccessToken(requestContext.getAccessToken());
+        log.info("Removed token for user with id: " + requestContext.getUserId());
+    }
+
+    public UserToken checkUserToken(String accessToken) {
+        UserToken userToken = userTokenRepository.findByAccessToken(accessToken);
+        if (userToken != null && userToken.getAccessExpiredAt().isAfter(OffsetDateTime.now())) {
+            log.info("Successful authorization for user with id: " + userToken.getUserId());
+            return userToken;
+        } else {
+            log.info("Failed authorization");
+            throw new AuthorizationException(EXCEPTION_UNAUTHORIZED);
+        }
     }
 
     private UserTokenDto genUserToken(long userId) {
@@ -76,6 +98,7 @@ public class AuthService {
                 .build();
         userTokenRepository.deleteByUserId(userId);
         userTokenRepository.save(userToken);
+        log.info("Generated token for user with id: " + userId);
         return UserTokenDto.builder()
                 .accessToken(userToken.getAccessToken())
                 .refreshToken(userToken.getRefreshToken())

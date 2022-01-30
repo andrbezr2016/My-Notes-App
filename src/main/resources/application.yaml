@@ -5,3 +5,6 @@ spring:
     password: ${POSTGRES_PASSWORD:postgres}
     username: ${POSTGRES_USERNAME:postgres}
     driver-class-name: org.postgresql.Driver
+logging:
+  level:
+    com.andrbezr2016.mynotes: INFO
