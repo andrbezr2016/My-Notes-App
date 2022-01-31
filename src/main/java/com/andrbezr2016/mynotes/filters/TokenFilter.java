@@ -30,12 +30,9 @@ public class TokenFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
         HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
+        String uri = httpRequest.getRequestURI();
         try {
-            if (httpRequest.getRequestURI().matches(
-                    API_AUTH_PATH + "/logout|" +
-                            API_USER_PATH + "(.*)|" +
-                            API_CATEGORIES_PATH + "(.*)|" +
-                            API_NOTES_PATH + "(.*)")) {
+            if (!uri.startsWith(API_AUTH_PATH) || uri.equals(API_AUTH_PATH + "/logout")) {
                 String accessToken = httpRequest.getHeader("Token");
                 UserToken userToken = authService.checkUserToken(accessToken);
                 requestContext.setUserId(userToken.getUserId());
