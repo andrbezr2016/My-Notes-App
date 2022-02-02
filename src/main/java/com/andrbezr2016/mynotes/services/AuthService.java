@@ -32,7 +32,7 @@ public class AuthService {
 
     public UserTokenDto login(LoginRequestDto loginRequestDto) {
         User user = userRepository.findByEmail(loginRequestDto.getEmail());
-        if (user != null && loginRequestDto.getPassword().equals(user.getPassword())) {
+        if (user != null && user.getPassword().equals(loginRequestDto.getPassword())) {
             return genUserToken(user.getId());
         } else {
             log.info("Failed login");
@@ -44,14 +44,14 @@ public class AuthService {
         boolean isTrue = userRepository.existsByEmail(registrationRequestDto.getEmail());
         if (!isTrue) {
             OffsetDateTime currentTime = OffsetDateTime.now();
-            userRepository.save(User.builder()
+            User user = userRepository.save(User.builder()
                     .username(registrationRequestDto.getUsername())
                     .email(registrationRequestDto.getEmail())
                     .password(registrationRequestDto.getPassword())
                     .createdAt(currentTime)
                     .modifiedAt(currentTime)
                     .build());
-            log.info("Added new user");
+            log.info("Added user with id: " + user.getId());
         } else {
             log.info("Failed registration");
             throw new MyNotesAppException(EXCEPTION_EXISTING_USER);
@@ -84,7 +84,7 @@ public class AuthService {
         }
     }
 
-    private UserTokenDto genUserToken(long userId) {
+    private UserTokenDto genUserToken(Long userId) {
         String accessToken = DigestUtils.sha256Hex(UUID.randomUUID().toString());
         String refreshToken = DigestUtils.sha256Hex(UUID.randomUUID().toString());
         OffsetDateTime currentTime = OffsetDateTime.now();

@@ -9,7 +9,7 @@ import java.time.OffsetDateTime;
 @Builder
 public class UserDto {
 
-    private long id;
+    private Long id;
 
     private String username;
 

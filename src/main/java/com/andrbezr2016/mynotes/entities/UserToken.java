@@ -17,7 +17,7 @@ public class UserToken {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @Column(name = "access_token", unique = true, nullable = false)
     private String accessToken;
@@ -26,7 +26,7 @@ public class UserToken {
     private String refreshToken;
 
     @Column(name = "user_id", nullable = false)
-    private long userId;
+    private Long userId;
 
     @Column(name = "access_expired_at")
     private OffsetDateTime accessExpiredAt;

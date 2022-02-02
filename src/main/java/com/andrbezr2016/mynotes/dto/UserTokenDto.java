@@ -13,7 +13,7 @@ public class UserTokenDto {
 
     private String refreshToken;
 
-    private long userId;
+    private Long userId;
 
     private OffsetDateTime accessExpiredAt;
 

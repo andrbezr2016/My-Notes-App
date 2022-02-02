@@ -17,7 +17,7 @@ public class NoteController {
     private final NoteService noteService;
 
     @GetMapping
-    public List<NoteDto> getUserNotes(@RequestParam(required = false) String categoryId) {
+    public List<NoteDto> getUserNotes(@RequestParam(required = false) Long categoryId) {
         return noteService.getUserNotes(categoryId);
     }
 

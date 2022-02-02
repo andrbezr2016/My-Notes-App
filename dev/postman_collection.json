@@ -45,7 +45,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"user@mail.com\",\r\n    \"password\": \"password\"\r\n}",
+							"raw": "{\r\n    \"email\": \"user1@mail.com\",\r\n    \"password\": \"11111111\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -75,7 +75,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"New User\",\r\n    \"email\": \"user@mail.com\",\r\n    \"password\": \"password\"\r\n}",
+							"raw": "{\r\n    \"username\": \"Andrey\",\r\n    \"email\": \"andrey@mail.com\",\r\n    \"password\": \"password\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -219,7 +219,7 @@
 							"formdata": [
 								{
 									"key": "userEditRequestDto",
-									"value": "{\n    \"username\": \"User\",\n    \"password\": \"password\"\n}",
+									"value": "{\n    \"username\": \"User1\",\n    \"password\": \"11111111\"\n}",
 									"contentType": "application/json",
 									"type": "default"
 								},
@@ -276,7 +276,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"New Category\"\r\n}",
+							"raw": "{\r\n    \"title\": \"New Category 2\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -302,7 +302,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Category\"\r\n}",
+							"raw": "{\r\n    \"title\": \"Old Category 2\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -310,13 +310,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/categories/1",
+							"raw": "{{host}}/categories/7",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"categories",
-								"1"
+								"7"
 							]
 						}
 					},
@@ -328,13 +328,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/categories/1",
+							"raw": "{{host}}/categories/2",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"categories",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -375,7 +375,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"categoryId\": \"1\",\r\n    \"title\": \"New Note\",\r\n    \"content\": \"Hello!\"\r\n}",
+							"raw": "{\r\n    \"categoryId\": \"8\",\r\n    \"title\": \"New Note 888\",\r\n    \"content\": \"Hello! Hello! 888\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -401,7 +401,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"categoryId\": \"1\",\r\n    \"title\": \"Note\",\r\n    \"content\": \"Hello world!\"\r\n}",
+							"raw": "{\r\n    \"categoryId\": \"\",\r\n    \"title\": \"Note without category\",\r\n    \"content\": \"\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -409,13 +409,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/notes/1",
+							"raw": "{{host}}/notes/13",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"notes",
-								"1"
+								"13"
 							]
 						}
 					},
@@ -427,13 +427,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/notes/1",
+							"raw": "{{host}}/notes/13",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"notes",
-								"1"
+								"13"
 							]
 						}
 					},
@@ -445,13 +445,13 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/notes/1",
+							"raw": "{{host}}/notes/12",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"notes",
-								"1"
+								"12"
 							]
 						}
 					},

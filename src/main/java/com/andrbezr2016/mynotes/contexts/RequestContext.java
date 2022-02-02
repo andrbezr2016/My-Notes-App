@@ -9,6 +9,6 @@ import org.springframework.web.context.annotation.RequestScope;
 @Component
 public class RequestContext {
 
-    private long userId;
+    private Long userId;
     private String accessToken;
 }

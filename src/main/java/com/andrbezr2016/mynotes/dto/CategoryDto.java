@@ -9,7 +9,7 @@ import java.time.OffsetDateTime;
 @Builder
 public class CategoryDto {
 
-    private long id;
+    private Long id;
 
     private String title;
 

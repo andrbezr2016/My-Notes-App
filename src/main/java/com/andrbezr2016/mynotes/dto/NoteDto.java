@@ -9,9 +9,9 @@ import java.time.OffsetDateTime;
 @Builder
 public class NoteDto {
 
-    private long id;
+    private Long id;
 
-    private long categoryId;
+    private Long categoryId;
 
     private String title;
 

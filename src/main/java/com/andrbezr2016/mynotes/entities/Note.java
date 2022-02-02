@@ -17,13 +17,13 @@ public class Note {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @Column(name = "user_id", nullable = false)
-    private long userId;
+    private Long userId;
 
     @Column(name = "category_id")
-    private long categoryId;
+    private Long categoryId;
 
     @Column(name = "title", nullable = false)
     private String title;
@@ -32,7 +32,7 @@ public class Note {
     private String content;
 
     @Column(name = "deleted_flag", nullable = false)
-    private boolean deletedFlag;
+    private Boolean deletedFlag;
 
     @Column(name = "deleted_at")
     private OffsetDateTime deletedAt;
