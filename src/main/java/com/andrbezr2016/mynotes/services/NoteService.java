@@ -2,7 +2,6 @@ package com.andrbezr2016.mynotes.services;
 
 import com.andrbezr2016.mynotes.contexts.RequestContext;
 import com.andrbezr2016.mynotes.dto.NoteDto;
-import com.andrbezr2016.mynotes.entities.Category;
 import com.andrbezr2016.mynotes.entities.Note;
 import com.andrbezr2016.mynotes.exceptions.MyNotesAppException;
 import com.andrbezr2016.mynotes.repositories.CategoryRepository;
@@ -42,7 +41,6 @@ public class NoteService {
         if (noteDto.getCategoryId() != null) {
             checkCategory(noteDto.getCategoryId());
         }
-        OffsetDateTime currentTime = OffsetDateTime.now();
         Note note = noteRepository.save(Note.builder()
                 .id(noteDto.getId())
                 .userId(requestContext.getUserId())
@@ -50,10 +48,8 @@ public class NoteService {
                 .title(noteDto.getTitle())
                 .content(noteDto.getContent())
                 .deletedFlag(false)
-                .createdAt(currentTime)
-                .modifiedAt(currentTime)
                 .build());
-        log.info("Added note with id: " + note.getId());
+        log.debug("Added note with id: " + note.getId());
         return toDto(note);
     }
 
@@ -76,9 +72,8 @@ public class NoteService {
             isEdit = true;
         }
         if (isEdit) {
-            note.setModifiedAt(OffsetDateTime.now());
             note = noteRepository.save(note);
-            log.info("Modified note with id: " + noteId);
+            log.debug("Modified note with id: " + noteId);
         }
         return toDto(note);
     }
@@ -87,25 +82,24 @@ public class NoteService {
         Note note = findNote(noteId);
         if (note.getDeletedFlag()) {
             noteRepository.delete(note);
-            log.info("Deleted note with id: " + noteId + ". Finally");
+            log.debug("Deleted note with id: " + noteId + ". Finally");
         } else {
-            OffsetDateTime currentTime = OffsetDateTime.now();
             note.setDeletedFlag(true);
-            note.setDeletedAt(currentTime);
-            note.setModifiedAt(currentTime);
-            noteRepository.save(note);
-            log.info("Deleted note with id: " + noteId + ". To trash");
+            note.setDeletedAt(OffsetDateTime.now());
+            note = noteRepository.save(note);
+            log.debug("Deleted note with id: " + noteId + ". To trash");
         }
         return toDto(note);
     }
 
     public NoteDto restoreNote(Long noteId) {
         Note note = findNote(noteId);
-        note.setDeletedFlag(false);
-        note.setDeletedAt(null);
-        note.setModifiedAt(OffsetDateTime.now());
-        noteRepository.save(note);
-        log.info("Restored note with id: " + noteId);
+        if (note.getDeletedFlag()) {
+            note.setDeletedFlag(false);
+            note.setDeletedAt(null);
+            note = noteRepository.save(note);
+            log.debug("Restored note with id: " + noteId);
+        }
         return toDto(note);
     }
 
@@ -115,16 +109,10 @@ public class NoteService {
     }
 
     private Note findNote(Long noteId) {
-        Note note = noteRepository.findById(noteId).orElseThrow(() -> {
-            log.info("Not found note with id: " + noteId);
+        return noteRepository.findByIdAndUserId(noteId, requestContext.getUserId()).orElseThrow(() -> {
+            log.warn("User with id: " + requestContext.getUserId() + " has no note with id: " + noteId);
             return new MyNotesAppException(EXCEPTION_NOTE_NOT_FOUND);
         });
-        if (note.getUserId().equals(requestContext.getUserId())) {
-            return note;
-        } else {
-            log.info("User with id: " + requestContext.getUserId() + " no access to note with id: " + noteId);
-            throw new MyNotesAppException(EXCEPTION_NO_ACCESS_TO_NOTE);
-        }
     }
 
     private NoteDto toDto(Note note) {
@@ -152,13 +140,9 @@ public class NoteService {
     }
 
     private void checkCategory(Long categoryId) {
-        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> {
-            log.info("Not found category with id: " + categoryId);
+        categoryRepository.findByIdAndUserId(categoryId, requestContext.getUserId()).orElseThrow(() -> {
+            log.warn("User with id: " + requestContext.getUserId() + " has no category with id: " + categoryId);
             return new MyNotesAppException(EXCEPTION_CATEGORY_NOT_FOUND);
         });
-        if (!category.getUserId().equals(requestContext.getUserId())) {
-            log.info("User with id: " + requestContext.getUserId() + " no access to category with id: " + categoryId);
-            throw new MyNotesAppException(EXCEPTION_NO_ACCESS_TO_CATEGORY);
-        }
     }
 }

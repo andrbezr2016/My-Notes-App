@@ -35,7 +35,7 @@ public class AuthService {
         if (user != null && user.getPassword().equals(loginRequestDto.getPassword())) {
             return genUserToken(user.getId());
         } else {
-            log.info("Failed login");
+            log.warn("Failed login");
             throw new MyNotesAppException(EXCEPTION_INVALID_USER);
         }
     }
@@ -43,17 +43,14 @@ public class AuthService {
     public void register(RegistrationRequestDto registrationRequestDto) {
         boolean isTrue = userRepository.existsByEmail(registrationRequestDto.getEmail());
         if (!isTrue) {
-            OffsetDateTime currentTime = OffsetDateTime.now();
             User user = userRepository.save(User.builder()
                     .username(registrationRequestDto.getUsername())
                     .email(registrationRequestDto.getEmail())
                     .password(registrationRequestDto.getPassword())
-                    .createdAt(currentTime)
-                    .modifiedAt(currentTime)
                     .build());
-            log.info("Added user with id: " + user.getId());
+            log.debug("Added user with id: " + user.getId());
         } else {
-            log.info("Failed registration");
+            log.warn("Failed registration");
             throw new MyNotesAppException(EXCEPTION_EXISTING_USER);
         }
     }
@@ -63,23 +60,23 @@ public class AuthService {
         if (userToken != null && userToken.getRefreshExpiredAt().isAfter(OffsetDateTime.now())) {
             return genUserToken(userToken.getUserId());
         } else {
-            log.info("Failed refresh token");
+            log.warn("Failed refresh token");
             throw new MyNotesAppException(EXCEPTION_INVALID_TOKEN);
         }
     }
 
     public void logout() {
         userTokenRepository.deleteByAccessToken(requestContext.getAccessToken());
-        log.info("Removed token for user with id: " + requestContext.getUserId());
+        log.debug("Removed token for user with id: " + requestContext.getUserId());
     }
 
     public UserToken checkUserToken(String accessToken) {
         UserToken userToken = userTokenRepository.findByAccessToken(accessToken);
         if (userToken != null && userToken.getAccessExpiredAt().isAfter(OffsetDateTime.now())) {
-            log.info("Successful authorization for user with id: " + userToken.getUserId());
+            log.debug("Successful authorization for user with id: " + userToken.getUserId());
             return userToken;
         } else {
-            log.info("Failed authorization");
+            log.warn("Failed authorization");
             throw new AuthorizationException(EXCEPTION_UNAUTHORIZED);
         }
     }
@@ -94,11 +91,10 @@ public class AuthService {
                 .userId(userId)
                 .accessExpiredAt(currentTime.plusMinutes(ACCESS_EXPIRED_IN_MINUTES))
                 .refreshExpiredAt(currentTime.plusMinutes(REFRESH_EXPIRED_IN_MINUTES))
-                .createdAt(currentTime)
                 .build();
         userTokenRepository.deleteByUserId(userId);
         userTokenRepository.save(userToken);
-        log.info("Generated token for user with id: " + userId);
+        log.debug("Generated token for user with id: " + userId);
         return UserTokenDto.builder()
                 .accessToken(userToken.getAccessToken())
                 .refreshToken(userToken.getRefreshToken())

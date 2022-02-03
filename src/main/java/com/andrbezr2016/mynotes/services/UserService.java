@@ -11,8 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.time.OffsetDateTime;
-
 import static com.andrbezr2016.mynotes.constants.ExceptionConstants.*;
 
 @RequiredArgsConstructor
@@ -40,16 +38,15 @@ public class UserService {
             isEdit = true;
         }
         if (isEdit) {
-            user.setModifiedAt(OffsetDateTime.now());
             user = userRepository.save(user);
-            log.info("Modified user with id: " + requestContext.getUserId());
+            log.debug("Modified user with id: " + requestContext.getUserId());
         }
         return toDto(user);
     }
 
     private User findCurrentUser() {
         return userRepository.findById(requestContext.getUserId()).orElseThrow(() -> {
-            log.info("Not found user with id: " + requestContext.getUserId());
+            log.warn("Not found user with id: " + requestContext.getUserId());
             return new MyNotesAppException(EXCEPTION_USER_NOT_FOUND);
         });
     }

@@ -7,4 +7,4 @@ spring:
     driver-class-name: org.postgresql.Driver
 logging:
   level:
-    com.andrbezr2016.mynotes: INFO
+    com.andrbezr2016.mynotes: DEBUG

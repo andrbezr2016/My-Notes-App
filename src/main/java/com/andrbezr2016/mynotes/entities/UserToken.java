@@ -1,6 +1,7 @@
 package com.andrbezr2016.mynotes.entities;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
@@ -34,6 +35,7 @@ public class UserToken {
     @Column(name = "refresh_expired_at")
     private OffsetDateTime refreshExpiredAt;
 
+    @CreationTimestamp
     @Column(name = "created_at", nullable = false)
     private OffsetDateTime createdAt;
 }

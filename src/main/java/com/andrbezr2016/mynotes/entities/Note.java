@@ -1,6 +1,8 @@
 package com.andrbezr2016.mynotes.entities;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
@@ -37,9 +39,11 @@ public class Note {
     @Column(name = "deleted_at")
     private OffsetDateTime deletedAt;
 
+    @CreationTimestamp
     @Column(name = "created_at", nullable = false)
     private OffsetDateTime createdAt;
 
+    @UpdateTimestamp
     @Column(name = "modified_at", nullable = false)
     private OffsetDateTime modifiedAt;
 }
