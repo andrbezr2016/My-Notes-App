@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
+
 import static com.andrbezr2016.mynotes.constants.ApiConstants.API_USER_PATH;
 
 @RequiredArgsConstructor
@@ -22,7 +24,7 @@ public class UserController {
     }
 
     @PatchMapping
-    public UserDto editCurrentUser(@RequestPart UserEditRequestDto userEditRequestDto, @RequestPart(required = false) MultipartFile icon) {
+    public UserDto editCurrentUser(@RequestPart @Valid UserEditRequestDto userEditRequestDto, @RequestPart(required = false) MultipartFile icon) {
         return userService.editCurrentUser(userEditRequestDto, icon);
     }
 }

@@ -1,5 +1,6 @@
 package com.andrbezr2016.mynotes.services;
 
+import com.andrbezr2016.mynotes.configuration.ConfigProperties;
 import com.andrbezr2016.mynotes.contexts.RequestContext;
 import com.andrbezr2016.mynotes.dto.LoginRequestDto;
 import com.andrbezr2016.mynotes.dto.RegistrationRequestDto;
@@ -19,7 +20,6 @@ import java.time.OffsetDateTime;
 import java.util.UUID;
 
 import static com.andrbezr2016.mynotes.constants.ExceptionConstants.*;
-import static com.andrbezr2016.mynotes.constants.TimeConstants.*;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -29,6 +29,7 @@ public class AuthService {
     private final UserRepository userRepository;
     private final UserTokenRepository userTokenRepository;
     private final RequestContext requestContext;
+    private final ConfigProperties properties;
 
     public UserTokenDto login(LoginRequestDto loginRequestDto) {
         User user = userRepository.findByEmail(loginRequestDto.getEmail());
@@ -89,8 +90,8 @@ public class AuthService {
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .userId(userId)
-                .accessExpiredAt(currentTime.plusMinutes(ACCESS_EXPIRED_IN_MINUTES))
-                .refreshExpiredAt(currentTime.plusMinutes(REFRESH_EXPIRED_IN_MINUTES))
+                .accessExpiredAt(currentTime.plusMinutes(properties.getAccessExpiredIn()))
+                .refreshExpiredAt(currentTime.plusMinutes(properties.getRefreshExpiredIn()))
                 .build();
         userTokenRepository.deleteByUserId(userId);
         userTokenRepository.save(userToken);

@@ -1,7 +1,9 @@
 package com.andrbezr2016.mynotes.services;
 
 import com.andrbezr2016.mynotes.contexts.RequestContext;
+import com.andrbezr2016.mynotes.dto.CategoryAddRequestDto;
 import com.andrbezr2016.mynotes.dto.CategoryDto;
+import com.andrbezr2016.mynotes.dto.CategoryEditRequestDto;
 import com.andrbezr2016.mynotes.entities.Category;
 import com.andrbezr2016.mynotes.exceptions.MyNotesAppException;
 import com.andrbezr2016.mynotes.repositories.CategoryRepository;
@@ -32,20 +34,20 @@ public class CategoryService {
                 .build()).collect(Collectors.toList());
     }
 
-    public CategoryDto addCategory(CategoryDto categoryDto) {
+    public CategoryDto addCategory(CategoryAddRequestDto categoryAddRequestDto) {
         Category category = categoryRepository.save(Category.builder()
                 .userId(requestContext.getUserId())
-                .title(categoryDto.getTitle())
+                .title(categoryAddRequestDto.getTitle())
                 .build());
         log.debug("Added category with id: " + category.getId());
         return toDto(category);
     }
 
-    public CategoryDto editCategory(Long categoryId, CategoryDto categoryDto) {
+    public CategoryDto editCategory(Long categoryId, CategoryEditRequestDto categoryEditRequestDto) {
         Category category = findCategory(categoryId);
         boolean isEdit = false;
-        if (categoryDto.getTitle() != null) {
-            category.setTitle(categoryDto.getTitle());
+        if (categoryEditRequestDto.getTitle() != null) {
+            category.setTitle(categoryEditRequestDto.getTitle());
             isEdit = true;
         }
         if (isEdit) {

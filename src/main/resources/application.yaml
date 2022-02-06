@@ -8,3 +8,7 @@ spring:
 logging:
   level:
     com.andrbezr2016.mynotes: DEBUG
+app:
+  token:
+    accessExpiredIn: ${ACCESS_EXPIRED_IN_MINUTES:60}
+    refreshExpiredIn: ${REFRESH_EXPIRED_IN_MINUTES:1440}

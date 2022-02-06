@@ -1,7 +1,9 @@
 package com.andrbezr2016.mynotes.services;
 
 import com.andrbezr2016.mynotes.contexts.RequestContext;
+import com.andrbezr2016.mynotes.dto.NoteAddRequestDto;
 import com.andrbezr2016.mynotes.dto.NoteDto;
+import com.andrbezr2016.mynotes.dto.NoteEditRequestDto;
 import com.andrbezr2016.mynotes.entities.Note;
 import com.andrbezr2016.mynotes.exceptions.MyNotesAppException;
 import com.andrbezr2016.mynotes.repositories.CategoryRepository;
@@ -37,38 +39,37 @@ public class NoteService {
         return toDtoList(noteList);
     }
 
-    public NoteDto addNote(NoteDto noteDto) {
-        if (noteDto.getCategoryId() != null) {
-            checkCategory(noteDto.getCategoryId());
+    public NoteDto addNote(NoteAddRequestDto noteAddRequestDto) {
+        if (noteAddRequestDto.getCategoryId() != null) {
+            checkCategory(noteAddRequestDto.getCategoryId());
         }
         Note note = noteRepository.save(Note.builder()
-                .id(noteDto.getId())
                 .userId(requestContext.getUserId())
-                .categoryId(noteDto.getCategoryId())
-                .title(noteDto.getTitle())
-                .content(noteDto.getContent())
+                .categoryId(noteAddRequestDto.getCategoryId())
+                .title(noteAddRequestDto.getTitle())
+                .content(noteAddRequestDto.getContent())
                 .deletedFlag(false)
                 .build());
         log.debug("Added note with id: " + note.getId());
         return toDto(note);
     }
 
-    public NoteDto editNote(Long noteId, NoteDto noteDto) {
-        if (noteDto.getCategoryId() != null) {
-            checkCategory(noteDto.getCategoryId());
+    public NoteDto editNote(Long noteId, NoteEditRequestDto noteEditRequestDto) {
+        if (noteEditRequestDto.getCategoryId() != null) {
+            checkCategory(noteEditRequestDto.getCategoryId());
         }
         Note note = findNote(noteId);
         boolean isEdit = false;
-        if (!Objects.equals(noteDto.getCategoryId(), note.getCategoryId())) {
-            note.setCategoryId(noteDto.getCategoryId());
+        if (!Objects.equals(noteEditRequestDto.getCategoryId(), note.getCategoryId())) {
+            note.setCategoryId(noteEditRequestDto.getCategoryId());
             isEdit = true;
         }
-        if (noteDto.getTitle() != null) {
-            note.setTitle(noteDto.getTitle());
+        if (noteEditRequestDto.getTitle() != null) {
+            note.setTitle(noteEditRequestDto.getTitle());
             isEdit = true;
         }
-        if (noteDto.getContent() != null) {
-            note.setContent(noteDto.getContent());
+        if (noteEditRequestDto.getContent() != null) {
+            note.setContent(noteEditRequestDto.getContent());
             isEdit = true;
         }
         if (isEdit) {

@@ -10,4 +10,6 @@ public interface ExceptionConstants {
     String EXCEPTION_USER_NOT_FOUND = "User not found";
     String EXCEPTION_CATEGORY_NOT_FOUND = "Category not found";
     String EXCEPTION_NOTE_NOT_FOUND = "Note not found";
+
+    String EXCEPTION_INCORRECT_PASSWORD = "must not contain spaces";
 }

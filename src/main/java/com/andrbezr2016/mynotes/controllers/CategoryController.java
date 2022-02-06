@@ -1,14 +1,20 @@
 package com.andrbezr2016.mynotes.controllers;
 
+import com.andrbezr2016.mynotes.dto.CategoryAddRequestDto;
 import com.andrbezr2016.mynotes.dto.CategoryDto;
+import com.andrbezr2016.mynotes.dto.CategoryEditRequestDto;
 import com.andrbezr2016.mynotes.services.CategoryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import java.util.List;
 
 import static com.andrbezr2016.mynotes.constants.ApiConstants.API_CATEGORIES_PATH;
 
+@Validated
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(API_CATEGORIES_PATH)
@@ -22,17 +28,17 @@ public class CategoryController {
     }
 
     @PostMapping
-    public CategoryDto addCategory(@RequestBody CategoryDto categoryDto) {
-        return categoryService.addCategory(categoryDto);
+    public CategoryDto addCategory(@RequestBody @Valid CategoryAddRequestDto categoryAddRequestDto) {
+        return categoryService.addCategory(categoryAddRequestDto);
     }
 
     @PatchMapping("/{categoryId}")
-    public CategoryDto editCategory(@PathVariable Long categoryId, @RequestBody CategoryDto categoryDto) {
-        return categoryService.editCategory(categoryId, categoryDto);
+    public CategoryDto editCategory(@PathVariable @Positive Long categoryId, @RequestBody @Valid CategoryEditRequestDto categoryEditRequestDto) {
+        return categoryService.editCategory(categoryId, categoryEditRequestDto);
     }
 
     @DeleteMapping("/{categoryId}")
-    public CategoryDto deleteCategory(@PathVariable Long categoryId) {
+    public CategoryDto deleteCategory(@PathVariable @Positive Long categoryId) {
         return categoryService.deleteCategory(categoryId);
     }
 }
