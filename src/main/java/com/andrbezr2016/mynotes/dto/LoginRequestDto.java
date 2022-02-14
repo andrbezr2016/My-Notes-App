@@ -1,6 +1,5 @@
 package com.andrbezr2016.mynotes.dto;
 
-import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
@@ -11,7 +10,6 @@ import javax.validation.constraints.Size;
 import static com.andrbezr2016.mynotes.constants.ExceptionConstants.EXCEPTION_INCORRECT_PASSWORD;
 
 @Data
-@Builder
 public class LoginRequestDto {
 
     @NotNull

@@ -15,6 +15,7 @@ import static com.andrbezr2016.mynotes.constants.ApiConstants.API_AUTH_PATH;
 
 @Validated
 @RequiredArgsConstructor
+@CrossOrigin
 @RestController
 @RequestMapping(API_AUTH_PATH)
 public class AuthController {

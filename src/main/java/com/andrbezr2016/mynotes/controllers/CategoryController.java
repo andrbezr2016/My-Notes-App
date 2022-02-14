@@ -16,6 +16,7 @@ import static com.andrbezr2016.mynotes.constants.ApiConstants.API_CATEGORIES_PAT
 
 @Validated
 @RequiredArgsConstructor
+@CrossOrigin
 @RestController
 @RequestMapping(API_CATEGORIES_PATH)
 public class CategoryController {

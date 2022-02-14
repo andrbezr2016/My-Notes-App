@@ -16,6 +16,7 @@ import static com.andrbezr2016.mynotes.constants.ApiConstants.API_NOTES_PATH;
 
 @Validated
 @RequiredArgsConstructor
+@CrossOrigin
 @RestController
 @RequestMapping(API_NOTES_PATH)
 public class NoteController {

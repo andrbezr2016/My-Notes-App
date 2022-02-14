@@ -12,6 +12,7 @@ import javax.validation.Valid;
 import static com.andrbezr2016.mynotes.constants.ApiConstants.API_USER_PATH;
 
 @RequiredArgsConstructor
+@CrossOrigin
 @RestController
 @RequestMapping(API_USER_PATH)
 public class UserController {
