@@ -13,10 +13,10 @@ import javax.validation.constraints.Positive;
 import java.util.List;
 
 import static com.andrbezr2016.mynotes.constants.ApiConstants.API_NOTES_PATH;
+import static com.andrbezr2016.mynotes.constants.ExceptionConstants.*;
 
 @Validated
 @RequiredArgsConstructor
-@CrossOrigin
 @RestController
 @RequestMapping(API_NOTES_PATH)
 public class NoteController {
@@ -24,7 +24,7 @@ public class NoteController {
     private final NoteService noteService;
 
     @GetMapping
-    public List<NoteDto> getUserNotes(@RequestParam(required = false) @Positive Long categoryId) {
+    public List<NoteDto> getUserNotes(@RequestParam(required = false) @Positive(message = EXCEPTION_POSITIVE) Long categoryId) {
         return noteService.getUserNotes(categoryId);
     }
 
@@ -34,17 +34,17 @@ public class NoteController {
     }
 
     @PatchMapping("/{noteId}")
-    public NoteDto editNote(@PathVariable @Positive Long noteId, @RequestBody @Valid NoteEditRequestDto noteEditRequestDto) {
+    public NoteDto editNote(@PathVariable @Positive(message = EXCEPTION_POSITIVE) Long noteId, @RequestBody @Valid NoteEditRequestDto noteEditRequestDto) {
         return noteService.editNote(noteId, noteEditRequestDto);
     }
 
     @DeleteMapping("/{noteId}")
-    public NoteDto deleteNote(@PathVariable @Positive Long noteId) {
+    public NoteDto deleteNote(@PathVariable @Positive(message = EXCEPTION_POSITIVE) Long noteId) {
         return noteService.deleteNote(noteId);
     }
 
     @PostMapping("/{noteId}")
-    public NoteDto restoreNote(@PathVariable @Positive Long noteId) {
+    public NoteDto restoreNote(@PathVariable @Positive(message = EXCEPTION_POSITIVE) Long noteId) {
         return noteService.restoreNote(noteId);
     }
 

@@ -13,10 +13,10 @@ import javax.validation.constraints.Positive;
 import java.util.List;
 
 import static com.andrbezr2016.mynotes.constants.ApiConstants.API_CATEGORIES_PATH;
+import static com.andrbezr2016.mynotes.constants.ExceptionConstants.*;
 
 @Validated
 @RequiredArgsConstructor
-@CrossOrigin
 @RestController
 @RequestMapping(API_CATEGORIES_PATH)
 public class CategoryController {
@@ -34,12 +34,12 @@ public class CategoryController {
     }
 
     @PatchMapping("/{categoryId}")
-    public CategoryDto editCategory(@PathVariable @Positive Long categoryId, @RequestBody @Valid CategoryEditRequestDto categoryEditRequestDto) {
+    public CategoryDto editCategory(@PathVariable @Positive(message = EXCEPTION_POSITIVE) Long categoryId, @RequestBody @Valid CategoryEditRequestDto categoryEditRequestDto) {
         return categoryService.editCategory(categoryId, categoryEditRequestDto);
     }
 
     @DeleteMapping("/{categoryId}")
-    public CategoryDto deleteCategory(@PathVariable @Positive Long categoryId) {
+    public CategoryDto deleteCategory(@PathVariable @Positive(message = EXCEPTION_POSITIVE) Long categoryId) {
         return categoryService.deleteCategory(categoryId);
     }
 }

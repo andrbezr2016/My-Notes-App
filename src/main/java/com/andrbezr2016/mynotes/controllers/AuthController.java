@@ -12,10 +12,10 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
 import static com.andrbezr2016.mynotes.constants.ApiConstants.API_AUTH_PATH;
+import static com.andrbezr2016.mynotes.constants.ExceptionConstants.*;
 
 @Validated
 @RequiredArgsConstructor
-@CrossOrigin
 @RestController
 @RequestMapping(API_AUTH_PATH)
 public class AuthController {
@@ -33,7 +33,7 @@ public class AuthController {
     }
 
     @GetMapping("/token")
-    public UserTokenDto requestToken(@RequestParam @NotBlank String refreshToken) {
+    public UserTokenDto requestToken(@RequestParam @NotBlank(message = EXCEPTION_NOT_BLANK) String refreshToken) {
         return authService.requestToken(refreshToken);
     }
 

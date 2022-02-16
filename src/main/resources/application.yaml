@@ -9,8 +9,8 @@ logging:
   level:
     com.andrbezr2016.mynotes: DEBUG
 app:
-  token:
-    accessExpiredIn: ${ACCESS_EXPIRED_IN_MINUTES:1}
-    refreshExpiredIn: ${REFRESH_EXPIRED_IN_MINUTES:2}
+  origin: ${ACCESS_CONTROL_ALLOW_ORIGIN:http://localhost:8080}
+  accessExpiredIn: ${ACCESS_EXPIRED_IN_MINUTES:1}
+  refreshExpiredIn: ${REFRESH_EXPIRED_IN_MINUTES:2}
 server:
   port: 8081

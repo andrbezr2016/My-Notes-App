@@ -2,6 +2,7 @@ package com.andrbezr2016.mynotes.errors;
 
 import com.andrbezr2016.mynotes.dto.ErrorDto;
 import com.andrbezr2016.mynotes.dto.ValidationErrorDto;
+import com.andrbezr2016.mynotes.exceptions.AuthorizationException;
 import com.andrbezr2016.mynotes.exceptions.MyNotesAppException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,11 @@ import static com.andrbezr2016.mynotes.constants.ExceptionConstants.*;
 @Slf4j
 @RestControllerAdvice
 public class MyNotesAppExceptionHandler {
+
+    @ExceptionHandler(AuthorizationException.class)
+    public ResponseEntity<ErrorDto> handleAuthorizationException(AuthorizationException exception) {
+        return new ResponseEntity<>(ErrorDto.builder().message(exception.getMessage()).build(), HttpStatus.UNAUTHORIZED);
+    }
 
     @ExceptionHandler(MyNotesAppException.class)
     public ResponseEntity<ErrorDto> handleMyException(MyNotesAppException exception) {
