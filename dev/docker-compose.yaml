@@ -7,7 +7,7 @@ services:
       - 5432:5432
     environment:
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PASSWORD=password
       - POSTGRES_DB=mynotes
       - PG_DATA=/var/lib/postgresql12/data
     volumes:
@@ -16,7 +16,19 @@ services:
     restart: always
     networks:
       - my-notes-net
-
+  my-notes-service:
+    image: bezrukov/my-notes-app:1.0
+    ports:
+      - 8081:8081
+    environment:
+      - POSTGRES_PATH=jdbc:postgresql://my-notes-db:5432/mynotes
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USERNAME=postgres
+    depends_on:
+      - my-notes-db
+    restart: always
+    networks:
+      - my-notes-net
 volumes:
   postgresql:
   postgresql_data:
