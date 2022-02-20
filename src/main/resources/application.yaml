@@ -5,12 +5,18 @@ spring:
     password: ${POSTGRES_PASSWORD:postgres}
     username: ${POSTGRES_USERNAME:postgres}
     driver-class-name: org.postgresql.Driver
+  servlet:
+    multipart:
+      max-request-size: 10MB
+      max-file-size: 5MB
 logging:
   level:
     com.andrbezr2016.mynotes: DEBUG
 app:
   origin: ${ACCESS_CONTROL_ALLOW_ORIGIN:http://localhost:8080}
-  accessExpiredIn: ${ACCESS_EXPIRED_IN_MINUTES:1}
-  refreshExpiredIn: ${REFRESH_EXPIRED_IN_MINUTES:2}
+  accessExpiredIn: ${ACCESS_EXPIRED_IN_MINUTES:60}
+  refreshExpiredIn: ${REFRESH_EXPIRED_IN_MINUTES:1440}
+  trashExpiredIn: ${TRASH_EXPIRED_IN_MINUTES:10080}
+  storageLocation: ${STORAGE_LOCATION:./uploads}
 server:
   port: 8081

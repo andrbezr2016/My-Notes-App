@@ -11,6 +11,7 @@ import com.andrbezr2016.mynotes.exceptions.AuthorizationException;
 import com.andrbezr2016.mynotes.exceptions.MyNotesAppException;
 import com.andrbezr2016.mynotes.repositories.UserRepository;
 import com.andrbezr2016.mynotes.repositories.UserTokenRepository;
+import com.andrbezr2016.mynotes.utilities.BCryptEncoder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -30,10 +31,11 @@ public class AuthService {
     private final UserTokenRepository userTokenRepository;
     private final RequestContext requestContext;
     private final ConfigProperties properties;
+    private final BCryptEncoder bCrypt;
 
     public UserTokenDto login(LoginRequestDto loginRequestDto) {
         User user = userRepository.findByEmail(loginRequestDto.getEmail());
-        if (user != null && user.getPassword().equals(loginRequestDto.getPassword())) {
+        if (user != null && bCrypt.check(loginRequestDto.getPassword(), user.getPassword())) {
             return genUserToken(user.getId());
         } else {
             log.warn("Failed login");
@@ -47,7 +49,7 @@ public class AuthService {
             User user = userRepository.save(User.builder()
                     .username(registrationRequestDto.getUsername())
                     .email(registrationRequestDto.getEmail())
-                    .password(registrationRequestDto.getPassword())
+                    .password(bCrypt.encode(registrationRequestDto.getPassword()))
                     .build());
             log.debug("Added user with id: " + user.getId());
         } else {

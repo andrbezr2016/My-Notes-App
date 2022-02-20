@@ -16,12 +16,18 @@ import javax.validation.constraints.PositiveOrZero;
 @ConstructorBinding
 public class ConfigProperties {
 
+    @NotBlank
+    private final String origin;
+
     @PositiveOrZero
     private final int accessExpiredIn;
 
     @PositiveOrZero
     private final int refreshExpiredIn;
 
+    @PositiveOrZero
+    private final int trashExpiredIn;
+
     @NotBlank
-    private final String origin;
+    private final String storageLocation;
 }

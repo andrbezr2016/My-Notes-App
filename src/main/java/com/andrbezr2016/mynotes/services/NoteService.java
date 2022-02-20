@@ -1,5 +1,6 @@
 package com.andrbezr2016.mynotes.services;
 
+import com.andrbezr2016.mynotes.configuration.ConfigProperties;
 import com.andrbezr2016.mynotes.contexts.RequestContext;
 import com.andrbezr2016.mynotes.dto.NoteAddRequestDto;
 import com.andrbezr2016.mynotes.dto.NoteDto;
@@ -27,6 +28,7 @@ public class NoteService {
     private final NoteRepository noteRepository;
     private final CategoryRepository categoryRepository;
     private final RequestContext requestContext;
+    private final ConfigProperties properties;
 
     public List<NoteDto> getUserNotes(Long categoryId) {
         List<Note> noteList;
@@ -64,11 +66,11 @@ public class NoteService {
             note.setCategoryId(noteEditRequestDto.getCategoryId());
             isEdit = true;
         }
-        if (noteEditRequestDto.getTitle() != null) {
+        if (noteEditRequestDto.getTitle() != null && !noteEditRequestDto.getTitle().equals(note.getTitle())) {
             note.setTitle(noteEditRequestDto.getTitle());
             isEdit = true;
         }
-        if (noteEditRequestDto.getContent() != null) {
+        if (noteEditRequestDto.getContent() != null && !noteEditRequestDto.getContent().equals(note.getContent())) {
             note.setContent(noteEditRequestDto.getContent());
             isEdit = true;
         }
@@ -105,6 +107,13 @@ public class NoteService {
     }
 
     public List<NoteDto> getDeletedUserNotes() {
+        List<Note> deletedNoteList = noteRepository.deleteAllByUserIdAndDeletedFlagAndDeletedAtBefore(
+                requestContext.getUserId(),
+                true,
+                OffsetDateTime.now().minusMinutes(properties.getTrashExpiredIn()));
+        if (!deletedNoteList.isEmpty()) {
+            log.debug("Deleted " + deletedNoteList.size() + " notes from trash after expiration date for user with id: " + requestContext.getUserId());
+        }
         List<Note> noteList = noteRepository.findAllByUserIdAndDeletedFlag(requestContext.getUserId(), true);
         return toDtoList(noteList);
     }

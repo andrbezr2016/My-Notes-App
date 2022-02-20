@@ -46,7 +46,7 @@ public class CategoryService {
     public CategoryDto editCategory(Long categoryId, CategoryEditRequestDto categoryEditRequestDto) {
         Category category = findCategory(categoryId);
         boolean isEdit = false;
-        if (categoryEditRequestDto.getTitle() != null) {
+        if (categoryEditRequestDto.getTitle() != null && !categoryEditRequestDto.getTitle().equals(category.getTitle())) {
             category.setTitle(categoryEditRequestDto.getTitle());
             isEdit = true;
         }

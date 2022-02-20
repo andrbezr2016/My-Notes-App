@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import javax.validation.ConstraintViolationException;
 import java.util.List;
@@ -29,6 +30,11 @@ public class MyNotesAppExceptionHandler {
     @ExceptionHandler(MyNotesAppException.class)
     public ResponseEntity<ErrorDto> handleMyException(MyNotesAppException exception) {
         return new ResponseEntity<>(ErrorDto.builder().message(exception.getMessage()).build(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ResponseEntity<ErrorDto> handleMaxSizeException(MaxUploadSizeExceededException exception) {
+        return new ResponseEntity<>(ErrorDto.builder().message(EXCEPTION_MAX_FILE_SIZE).build(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

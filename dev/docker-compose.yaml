@@ -7,7 +7,7 @@ services:
       - 5432:5432
     environment:
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
+      - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=mynotes
       - PG_DATA=/var/lib/postgresql12/data
     volumes:
@@ -22,7 +22,7 @@ services:
       - 8081:8081
     environment:
       - POSTGRES_PATH=jdbc:postgresql://my-notes-db:5432/mynotes
-      - POSTGRES_PASSWORD=password
+      - POSTGRES_PASSWORD=postgres
       - POSTGRES_USERNAME=postgres
     depends_on:
       - my-notes-db

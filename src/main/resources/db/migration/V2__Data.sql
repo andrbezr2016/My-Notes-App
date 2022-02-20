@@ -1,6 +1,6 @@
 INSERT INTO users (username, email, password)
-VALUES ('User1', 'user1@mail.com', '11111111'),
-       ('User2', 'user2@mail.com', '22222222');
+VALUES ('User1', 'user1@mail.com', '$2a$10$erVqqbiY9DQVhAkn5sq4ZeD86EbB8JkuAK1oCxtAe.knRjJuOlDW6'),
+       ('User2', 'user2@mail.com', '$2a$10$NnESUJsNXqx/c2d3q4o6x.Xxj5j0YFlPgyriLqHoKlF2CWZPmUtcq');
 
 INSERT INTO categories (user_id, title)
 VALUES (1, 'Category 1'),
