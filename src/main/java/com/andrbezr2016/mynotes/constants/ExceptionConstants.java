@@ -11,7 +11,7 @@ public interface ExceptionConstants {
     String EXCEPTION_CATEGORY_NOT_FOUND = "Category not found";
     String EXCEPTION_NOTE_NOT_FOUND = "Note not found";
     String EXCEPTION_MAX_FILE_SIZE = "File too large";
-    String EXCEPTION_FILE_FORMAT = "File must be .jpeg or .png";
+    String EXCEPTION_FILE_FORMAT = "File must be .jpeg";
 
     String EXCEPTION_PASSWORD = "Must not contain spaces";
     String EXCEPTION_EMAIL = "Invalid email format";

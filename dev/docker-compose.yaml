@@ -17,7 +17,7 @@ services:
     networks:
       - my-notes-net
   my-notes-service:
-    image: bezrukov/my-notes-app:1.0
+    image: andrbezr2016/my-notes-app:1.0
     ports:
       - 8081:8081
     environment:
@@ -29,6 +29,12 @@ services:
     restart: always
     networks:
       - my-notes-net
+  my-notes-client:
+    image: andrbezr2016/my-notes-front:1.0
+    ports:
+      - 8080:8080
+    networks:
+      - my-notes-net
 volumes:
   postgresql:
   postgresql_data:
@@ -36,5 +42,4 @@ volumes:
 
 networks:
   my-notes-net:
-    driver:
-       bridge
+    driver: bridge

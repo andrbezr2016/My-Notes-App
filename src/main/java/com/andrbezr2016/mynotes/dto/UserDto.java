@@ -15,7 +15,7 @@ public class UserDto {
 
     private String email;
 
-    private String iconPath;
+    private String icon;
 
     private OffsetDateTime createdAt;
 
