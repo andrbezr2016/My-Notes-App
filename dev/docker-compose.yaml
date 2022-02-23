@@ -9,10 +9,8 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=mynotes
-      - PG_DATA=/var/lib/postgresql12/data
     volumes:
-      - postgresql:/var/lib/postgresql12
-      - postgresql_data:/var/lib/postgresql12/data
+      - postgresql_data:/var/lib/postgresql/data
     restart: always
     networks:
       - my-notes-net
@@ -33,13 +31,12 @@ services:
     image: andrbezr2016/my-notes-front:1.0
     ports:
       - 8080:8080
+    restart: always
     networks:
       - my-notes-net
 volumes:
-  postgresql:
   postgresql_data:
     driver: local
-
 networks:
   my-notes-net:
     driver: bridge
